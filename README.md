@@ -1,1 +1,3 @@
 # Non-asymptotic-confidence-region-RKHS
+
+This folder contains the R code used to produce the numerical experiments of the paper entitled"Non-asymptotic confidence regions on RKHS. The Paley-Wiener and standard Sobolev cases",by F. Gamboa and O. RoustantFirst download the folder, open R and set the working directory accordingly. Then,- for Section 5.1. (Paley-Wiener): run "confRegionRKHS_PaleyWiener.R"- for Section 5.2. (Derivative-based setting): run "confRegionRKHS_Sobolev-derivative-based.R"- for Section 5.3. (Derivative-free setting): run "confRegionRKHS_Sobolev-derivative-free.R"
