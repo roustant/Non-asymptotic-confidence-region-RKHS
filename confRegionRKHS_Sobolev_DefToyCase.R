@@ -42,7 +42,7 @@ fDer <- function(x) sapply(x, fFunDer)
 
 # graphical representation of the test function and its derivative
 t <- seq(0, 1, length = 200)
-par(mfrow = c(1, 1))
+par(mfrow = c(1, 2))
 plot(t, f(t), lty = 1, type = "l")
 plot(t, fDer(t), lty = 1, type = "l")
 
@@ -51,12 +51,5 @@ fSq <- function(x) {
 }
 
 
-# evaluation de b = sup de f^2 + f'^2
-library(rgenoud)
-resOpt <- genoud(fSq, nvars = 1, max = TRUE, max.generations = 5, 
-                 Domains = matrix(c(0, 1), nrow = 1, ncol = 2))
 
-par(mfrow = c(1, 1))
-plot(t, fSq(t), lty = 1, type = "l")
-points(resOpt$par, resOpt$value, pch = 19, col = "blue")
-b <- resOpt$value
+

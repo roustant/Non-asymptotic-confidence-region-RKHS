@@ -4,7 +4,7 @@ library(rgenoud)
 
 source("confRegionRKHS_Commons.R")
 
-pdfPlot <- FALSE
+pdfPlot <- TRUE
 
 sinc <- function(u) {
   # sinus cardinal normalisee. Son integrale vaut 1 sur R.
@@ -36,6 +36,7 @@ plot(t, f(t), lty = 1, type = "l")
 
 # norm of the test function
 fNorm <- sqrt(t(w) %*% kPW(z, z) %*% w)
+fNorm <- as.numeric(fNorm)
 
 # squared test function
 fSq <- function(x, eta) {
@@ -66,7 +67,7 @@ PWnormCI <- function(X, Y, Yder = NULL, infNorm, delta, alpha){
 
 # computation
 n <- 10
-seed <- 1 # about X sampling
+seed <- 5 # about X sampling
 set.seed(seed)
 X <- runif(n)
 Y <- f(X)
@@ -100,18 +101,18 @@ Y <- f(X)
 
 zalphaSmall <- PWnormCI(X = X, Y = Y, alpha = 0.5, 
                       infNorm = C1, delta = delta0)
-fHatRegSmall <- fHatRegion(t, X, Y, kern = kPW, zalpha = zalphaSmall)
+fHatRegSmall <- fHatRegion(t, X = X, Y = Y, kern = kPW, zalpha = zalphaSmall)
 zalpha <- PWnormCI(X = X, Y = Y, alpha = alpha, 
                       infNorm = C1, delta = delta0)
-fHatReg <- fHatRegion(t, X, Y, kern = kPW, zalpha = zalpha)
+fHatReg <- fHatRegion(t, X = X, Y = Y, kern = kPW, zalpha = zalpha)
 
 
 fileName <- paste("PaleyWienerRegion_alpha", 
                   floor(100 * alpha), "seed", seed, ".pdf", sep = "")
 if (pdfPlot) pdf(file = fileName, width = 7, height = 5)
-regionPlot(f = f, fDer = NULL, X = X, ylim = c(-3.5, 3.5), 
+regionPlot(f = f, fNorm = fNorm, fDer = NULL, X = X, #ylim = c(-3.5, 3.5), 
            regSmall = fHatRegSmall, reg = fHatReg, 
-           alpha)
+           alpha = alpha)
 if (pdfPlot) dev.off()
 
 
